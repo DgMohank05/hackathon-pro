@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.stech.User;
 import com.stech.service.LoginService;
 
 @Controller
@@ -44,48 +43,49 @@ public class LoginController {
 
     // Login Form Submission (POST)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password) {
-        boolean isValidUser = service.validateUser(name, password);
+    public String showWelcomePage(ModelMap model, 
+                                   @RequestParam String name, 
+                                   @RequestParam String password, 
+                                   @RequestParam String role) {
+        boolean isValidUser = false;
 
-        if (!isValidUser) {
-            model.put("errorMessage", "Access Denied, Invalid Credentials");
-            return "login";
+        // Check the role and validate accordingly
+        switch (role.toLowerCase()) {
+            case "user":
+                isValidUser = service.validateUser(name, password);
+                if (isValidUser) {
+                    model.put("name", name);
+                    return "welcome-user"; // User welcome page (e.g., welcome-user.jsp)
+                }
+                break;
+            case "banker":
+                isValidUser = service.validateBanker(name, password);
+                if (isValidUser) {
+                    model.put("name", name);
+                    return "welcome-banker"; // Banker welcome page (e.g., welcome-banker.jsp)
+                }
+                break;
+            case "admin":
+                isValidUser = service.validateAdmin(name, password);
+                if (isValidUser) {
+                    model.put("name", name);
+                    return "welcome-admin"; // Admin welcome page (e.g., welcome-admin.jsp)
+                }
+                break;
+            default:
+                model.put("errorMessage", "Invalid role selected.");
+                return "login";
         }
 
-        model.put("name", name);
-        return "welcome"; // Ensure welcome.jsp exists in WEB-INF/jsp/
+        // If no valid user found
+        model.put("errorMessage", "Access Denied, Invalid Credentials");
+        return "login";
     }
 
     // Sign-Up Page (GET)
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String viewSignUpPage() {
         return "signup"; // Ensure signup.jsp exists in WEB-INF/jsp/
-    }
-
-    // Sign-Up Form Submission (POST)
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String handleSignUp(@RequestParam String username,
-                               @RequestParam String firstName,
-                               @RequestParam(required = false) String middleName,
-                               @RequestParam String lastName,
-                               @RequestParam String email,
-                               @RequestParam String phone,
-                               @RequestParam String password,
-                               ModelMap model) {
-        // Create a User object and save it to the database
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setFirstName(firstName);
-        newUser.setMiddleName(middleName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setPhone(phone);
-        newUser.setPassword(password);
-
-        service.registerUser(newUser); // Add this method in LoginService to save the user
-
-        model.put("successMessage", "Sign up successful! Please log in.");
-        return "login"; // Redirect to login.jsp
     }
 
     // Logout and Redirect to Home Page

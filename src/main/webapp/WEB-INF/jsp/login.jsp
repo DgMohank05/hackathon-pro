@@ -45,7 +45,11 @@
             display: flex;
             flex-direction: column;
         }
-        input[type="text"], input[type="password"] {
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"], select {
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -93,7 +97,14 @@
             
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required />
-            
+
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="banker">Banker</option>
+                <option value="admin">Admin</option>
+            </select>
+
             <input type="submit" value="Login" />
         </form>
         <div class="signup-link">

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +44,21 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        .content {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -65,8 +81,40 @@
 
     <div class="content">
         <h1>Welcome, User!</h1>
-        <p>Your Account Number: <strong th:text="${accountNumber}"></strong></p>
+        <p>Your Account Number: <strong>${loan.accountNumber}</strong></p>
         <p>Here you can view your loan details and apply for new loans.</p>
+
+        <h2>Loan Details</h2>
+        <table>
+            <tr>
+                <th>Loan Amount</th>
+                <td>${loan.loanAmount}</td>
+            </tr>
+            <tr>
+                <th>Interest Rate</th>
+                <td>${loan.interestRate}%</td>
+            </tr>
+            <tr>
+                <th>EMI Amount</th>
+                <td>${loan.emiAmount}</td>
+            </tr>
+            <tr>
+                <th>Months Remaining</th>
+                <td>${loan.monthsRemaining}</td>
+            </tr>
+            <tr>
+                <th>Principal Remaining</th>
+                <td>${loan.principalRemaining}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>${loan.totalAmount}</td>
+            </tr>
+            <tr>
+                <th>Payment Status</th>
+                <td>${loan.paymentStatus}</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>

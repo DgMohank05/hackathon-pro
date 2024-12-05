@@ -1,7 +1,5 @@
 package com.stech;
 
-
-
 import jakarta.persistence.*;
 
 @Entity
@@ -31,6 +29,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(name = "account_number", unique = true)
+    private String accountNumber;
 
     // Getters and Setters
     public Long getId() {
@@ -96,5 +97,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-}
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+}
