@@ -101,41 +101,32 @@
             color: #555;
         }
 
-        /* Banner Images */
-        .loan-banners {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .loan-banner {
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            height: 250px;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .loan-banner:hover {
-            transform: scale(1.05);
-        }
-        .loan-banner a {
-            display: block;
+        /* Table Styling */
+        table {
             width: 100%;
-            height: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1.1em;
         }
-        .loan-banner .banner-text {
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
+        table, th, td {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
             color: white;
-            font-size: 20px;
-            font-weight: bold;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 5px;
+            font-weight: 600;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
         }
 
         /* Animations */
@@ -191,14 +182,13 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="/user/welcome-user">Dashboard</a> <!-- Redirect to Welcome Page -->
-            <a href="/user/myloans">My Loans</a>
-            <a href="/user/apply-loan">Apply for Loan</a>
-            <a href="/emi-calculator">EMI Calculator</a> <!-- EMI Calculator Redirect -->
-        </div>
+	<div class="navbar">
+	    <div class="nav-links">
+	        <a href="/dashboard">Dashboard</a> <!-- Redirect to Login Page -->
+	        <a href="/user/myloans">My Loans</a>
+	        <a href="/user/apply-loan">Apply for Loan</a>
+	        <a href="/emi-calculator">EMI Calculator</a> <!-- EMI Calculator Redirect -->
+	    </div>
         <div class="dropdown">
             <span>Profile</span>
             <div class="dropdown-content">
@@ -216,37 +206,41 @@
         <p>Your Account Number: <strong>${accountNumber}</strong></p>
         <p>Here you can view your loan details and apply for new loans.</p>
 
-        <h2>Loan Options</h2>
+        <h2>Loan Details</h2>
+        <table>
+            <tr>
+                <th>Loan Amount</th>
+                <td>${loan.loanAmount}</td>
+            </tr>
+            <tr>
+                <th>Interest Rate</th>
+                <td>${loan.interestRate}%</td>
+            </tr>
+            <tr>
+                <th>EMI Amount</th>
+                <td>${loan.emiAmount}</td>
+            </tr>
+            <tr>
+                <th>Months Remaining</th>
+                <td>${loan.monthsRemaining}</td>
+            </tr>
+            <tr>
+                <th>Principal Remaining</th>
+                <td>${loan.principalRemaining}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>${loan.totalAmount}</td>
+            </tr>
+            <tr>
+                <th>Payment Status</th>
+                <td>${loan.paymentStatus}</td>
+            </tr>
+        </table>
 
-        <!-- Loan Banners Grid -->
-        <div class="loan-banners">
-            <!-- Loan 1 Banner -->
-            <div class="loan-banner" style="background-image: url('images/loan1-banner.jpg');">
-                <a href="/user/loan-application/1">
-                    <div class="banner-text">Loan 1: Personal Loan</div>
-                </a>
-            </div>
-
-            <!-- Loan 2 Banner -->
-            <div class="loan-banner" style="background-image: url('images/loan2-banner.jpg');">
-                <a href="/user/loan-application/2">
-                    <div class="banner-text">Loan 2: Home Loan</div>
-                </a>
-            </div>
-
-            <!-- Loan 3 Banner -->
-            <div class="loan-banner" style="background-image: url('images/loan3-banner.jpg');">
-                <a href="/user/loan-application/3">
-                    <div class="banner-text">Loan 3: Car Loan</div>
-                </a>
-            </div>
-
-            <!-- Loan 4 Banner -->
-            <div class="loan-banner" style="background-image: url('images/loan4-banner.jpg');">
-                <a href="/user/loan-application/4">
-                    <div class="banner-text">Loan 4: Education Loan</div>
-                </a>
-            </div>
+        <!-- Button for Applying for New Loan -->
+        <div class="text-center">
+            <a href="/user/apply-loan" class="btn-primary">Apply for a New Loan</a>
         </div>
     </div>
 </body>

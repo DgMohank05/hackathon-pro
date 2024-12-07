@@ -8,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@SessionAttributes("name")
+@SessionAttributes({"name", "accountNumber"}) // Updated to include accountNumber
 public class LoginController {
 
     @Autowired
@@ -53,7 +53,7 @@ public class LoginController {
             User user = service.findUserByUsername(name);  // Fetching user from the user repository
             if (user != null && service.validateUser(name, password)) {
                 setSessionAttributes(model, user.getFirstName(), user.getMiddleName(), user.getLastName(), user.getAccountNumber());
-                return "welcome-user"; // Redirect to user welcome page
+                return "redirect:/user/welcome"; // Redirect to user dashboard/welcome page
             }
         }
         // Handle Banker Login
@@ -61,7 +61,7 @@ public class LoginController {
             User banker = service.findUserByUsername(name);  // Adjusted for the banker repository (should be checked from banker repo)
             if (banker != null && service.validateBanker(name, password)) {
                 setSessionAttributes(model, banker.getFirstName(), banker.getMiddleName(), banker.getLastName(), null);
-                return "welcome-banker"; // Redirect to banker welcome page
+                return "redirect:/banker/welcome"; // Redirect to banker dashboard
             }
         }
         // Handle Admin Login
@@ -69,7 +69,7 @@ public class LoginController {
             User admin = service.findUserByUsername(name);  // Adjusted for the admin repository (should be checked from admin repo)
             if (admin != null && service.validateAdmin(name, password)) {
                 setSessionAttributes(model, admin.getFirstName(), admin.getMiddleName(), admin.getLastName(), null);
-                return "welcome-admin"; // Redirect to admin welcome page
+                return "redirect:/admin/welcome"; // Redirect to admin dashboard
             }
         }
 
@@ -105,8 +105,6 @@ public class LoginController {
             newUser.setPhone(phone);
             newUser.setPassword(password); // For now, saving plain password
             
-            
-
             // Register the user
             service.registerUser(newUser);
 

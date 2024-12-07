@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Welcome</title>
+	<p>Account Number: ${accountNumber}</p>
+
     <style>
         /* General Styling */
         body {
@@ -182,14 +184,13 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="/user/welcome-user">Dashboard</a> <!-- Redirect to Welcome Page -->
-            <a href="/user/myloans">My Loans</a>
-            <a href="/user/apply-loan">Apply for Loan</a>
-            <a href="/emi-calculator">EMI Calculator</a> <!-- EMI Calculator Redirect -->
-        </div>
+	<div class="navbar">
+	    <div class="nav-links">
+			<a href="/user/welcome">Dashboard</a>
+	        <a href="/user/myloans">My Loans</a>
+	        <a href="/user/apply-loan">Apply for Loan</a>
+	        <a href="/emi-calculator">EMI Calculator</a> <!-- EMI Calculator Redirect -->
+	    </div>
         <div class="dropdown">
             <span>Profile</span>
             <div class="dropdown-content">
