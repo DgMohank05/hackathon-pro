@@ -7,15 +7,29 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #333;
+            background-color: #343a40;
             color: white;
             padding: 15px 0;
             text-align: center;
+        }
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
         }
         .container {
             max-width: 600px;
@@ -23,6 +37,7 @@
             padding: 20px;
             background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
         .input-group {
             margin-bottom: 20px;
@@ -53,35 +68,48 @@
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
+            text-align: center;
         }
         footer {
-            background-color: #333;
-            color: white;
             text-align: center;
+            margin-top: 2em;
+            background-color: #f1f1f1;
             padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            color: #555;
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <h1>EMI Calculator</h1>
+        <p>Calculate your monthly installments easily.</p>
     </header>
 
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/emi-calculator">EMI Calculator</a>
+        <form action="/login" method="get" style="display: inline;">
+            <button type="submit">Login / Sign Up</button>
+        </form>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container">
+        <h2>Calculate Your EMI</h2>
         <div class="input-group">
-            <label for="principal">Loan Amount (₹):</label>
-            <input type="number" id="principal" required>
+            <label for="principal">Loan Amount:</label>
+            <input type="number" id="principal" placeholder="Enter loan amount" required>
         </div>
         <div class="input-group">
             <label for="rate">Annual Interest Rate (%):</label>
-            <input type="number" id="rate" step="0.01" required>
+            <input type="number" id="rate" step="0.01" placeholder="Enter annual interest rate" required>
         </div>
         <div class="input-group">
             <label for="tenure">Loan Tenure (Months):</label>
-            <input type="number" id="tenure" required>
+            <input type="number" id="tenure" placeholder="Enter tenure in months" required>
         </div>
         <button onclick="calculateEMI()">Calculate EMI</button>
 
@@ -89,33 +117,33 @@
     </div>
 
     <footer>
-        <a href="/">Back to Home</a>
+        <p>&copy; 2024 Loan Tracker. All rights reserved.</p>
     </footer>
 
     <script>
         function calculateEMI() {
+            // Fetch input values
             const principal = parseFloat(document.getElementById("principal").value);
-            const rate = parseFloat(document.getElementById("rate").value) / 12 / 100; // Monthly interest rate
-            const tenure = parseInt(document.getElementById("tenure").value); // Loan tenure in months
+            const annualRate = parseFloat(document.getElementById("rate").value);
+            const tenure = parseInt(document.getElementById("tenure").value);
 
-            // Basic validation for inputs
-            if (!principal || !rate || !tenure) {
-                alert("Please enter valid inputs.");
+            // Validate inputs
+            if (!principal || !annualRate || !tenure || principal <= 0 || annualRate <= 0 || tenure <= 0) {
+                alert("Please enter valid positive values for all inputs.");
                 return;
             }
 
-            // EMI calculation formula using a simpler method
-            const emi = (principal * rate * (1 + rate) * tenure) / ((1 + rate) * tenure - 1);
+            // EMI calculation logic
+            const monthlyRate = annualRate / 12 / 100; // Convert annual rate to monthly rate
+            const calculatedEMI = (principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+                                  (Math.pow(1 + monthlyRate, tenure) - 1);
 
-            // Ensure result is a valid number and display it
-            if (!isNaN(emi)) {
-                document.getElementById("result").innerText = `Total EMI: ${emi.toFixed(2)}`;
-            } else {
-				const formattedEMI = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(emi.toFixed(2));
-				document.getElementById("result").innerText = "Total EMI: " + formattedEMI;
+            // Debug: Log calculated EMI
+            console.log("Calculated EMI:", calculatedEMI);
 
-
-            }
+            // Update DOM
+            const resultElement = document.getElementById("result");
+            document.getElementById("result").innerHTML = `Calculated EMI: ${calculatedEMI.toFixed(2)}`;
         }
     </script>
 </body>
