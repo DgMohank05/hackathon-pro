@@ -104,6 +104,8 @@ public class LoginController {
             newUser.setEmail(email);
             newUser.setPhone(phone);
             newUser.setPassword(password); // For now, saving plain password
+            
+            
 
             // Register the user
             service.registerUser(newUser);

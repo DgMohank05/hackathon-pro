@@ -37,8 +37,6 @@ public class LoginService {
     // Validate user login
     public boolean validateUser(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password) != null;
-        
-
     }
 
     // Validate admin login
@@ -60,17 +58,19 @@ public class LoginService {
         }
 
         // Save the new user
-        User savedUser = userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);  // Save user first to get an ID
 
-        // Generate and assign a unique account number
+        // Generate and assign a unique account number after user is saved
         String accountNumber = accountNumberGenerator.generateAccountNumber(savedUser.getId());
         savedUser.setAccountNumber(accountNumber);
 
         // Update the user with the generated account number
-        userRepository.save(savedUser);
-    }
-    public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username); // This should return the full user object including account number
+        userRepository.save(savedUser);  // Save the updated user with account number
     }
 
+    // Find user by username
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);  // This should return the full user object including account number
+    }
 }
+

@@ -30,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private String password; // User's encrypted password
 
-    @Column(name = "account_number", unique = true, nullable = false)
+    @Column(name = "account_number")
     private String accountNumber; // Unique account number for loans
 
     // Getters and Setters
