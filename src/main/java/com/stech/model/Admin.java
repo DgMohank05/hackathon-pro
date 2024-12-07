@@ -1,10 +1,10 @@
-package com.stech;
+package com.stech.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "bankers")
-public class Banker {
+@Table(name = "admins")
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

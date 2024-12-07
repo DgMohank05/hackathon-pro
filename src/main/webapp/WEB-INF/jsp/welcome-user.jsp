@@ -80,8 +80,8 @@
     </div>
 
     <div class="content">
-        <h1>Welcome, User!</h1>
-        <p>Your Account Number: <strong>${loan.accountNumber}</strong></p>
+        <h1>Welcome, ${name}!</h1> <!-- Displaying the full name -->
+        <p>Your Account Number: <strong>${accountNumber}</strong></p> <!-- Displaying the account number -->
         <p>Here you can view your loan details and apply for new loans.</p>
 
         <h2>Loan Details</h2>

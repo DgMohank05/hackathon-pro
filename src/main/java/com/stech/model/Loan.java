@@ -1,38 +1,44 @@
-package com.stech;
+package com.stech.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Loan {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate loanId
     @Column(name = "loan_id")
     private int loanId;
 
-    @Column(name = "account_number")
+    @Column(name = "account_number", nullable = false) // Ensure account number is mandatory
     private String accountNumber;
 
-    @Column(name = "loan_amount")
+    @Column(name = "loan_type", nullable = false) // Added loan type
+    private String loanType;
+
+    @Column(name = "loan_amount", nullable = false)
     private double loanAmount;
 
-    @Column(name = "interest_rate")
+    @Column(name = "interest_rate", nullable = false)
     private double interestRate;
 
-    @Column(name = "emi_amount")
+    @Column(name = "emi_amount", nullable = false)
     private double emiAmount;
 
-    @Column(name = "months_remaining")
+    @Column(name = "months_remaining", nullable = false)
     private int monthsRemaining;
 
-    @Column(name = "principal_remaining")
+    @Column(name = "principal_remaining", nullable = false)
     private double principalRemaining;
 
-    @Column(name = "total_amount")
+    @Column(name = "total_amount", nullable = false)
     private double totalAmount;
 
-    @Column(name = "payment_status")
+    @Column(name = "payment_status", nullable = false)
     private String paymentStatus;
 
     // Getters and Setters
@@ -50,6 +56,14 @@ public class Loan {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(String loanType) {
+        this.loanType = loanType;
     }
 
     public double getLoanAmount() {

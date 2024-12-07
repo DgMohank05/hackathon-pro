@@ -1,4 +1,4 @@
-package com.stech;
+package com.stech.model;
 
 import jakarta.persistence.*;
 
@@ -8,30 +8,30 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Primary Key: Unique identifier for the user
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String username; // Unique username for login
 
     @Column(nullable = false)
-    private String firstName;
+    private String firstName; // User's first name
 
-    private String middleName;
+    private String middleName; // Optional middle name
 
     @Column(nullable = false)
-    private String lastName;
+    private String lastName; // User's last name
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email; // Unique email for contact
 
     @Column(nullable = false, length = 10)
-    private String phone;
+    private String phone; // 10-digit phone number
 
     @Column(nullable = false)
-    private String password;
+    private String password; // User's encrypted password
 
-    @Column(name = "account_number", unique = true)
-    private String accountNumber;
+    @Column(name = "account_number", unique = true, nullable = false)
+    private String accountNumber; // Unique account number for loans
 
     // Getters and Setters
     public Long getId() {
